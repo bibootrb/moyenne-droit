@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>معدلي - حقوق</title>
+    <style>
+        :root {
+            --primary-dark: #37474f;
+            --accent-color: #0097a7;
+            --light-bg: #eceff1;
+            --white: #ffffff;
+            --success: #2e7d32;
+            --fail: #c62828;
+            --warning: #fbc02d;
+            --telegram: #0088cc;
+            --facebook: #1877f2;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            color: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* الناف بار */
+        .navbar {
+            background-color: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-brand { font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 5px; }
+        .nav-links { display: flex; gap: 10px; }
+        .social-btn { display: flex; align-items: center; gap: 5px; text-decoration: none; padding: 6px 12px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; }
+        .btn-telegram { background-color: #e3f2fd; color: var(--telegram); }
+        .btn-facebook { background-color: #e8f5fe; color: var(--facebook); }
+        .icon-svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .container {
+            max-width: 650px;
+            width: 95%;
+            margin: 20px auto;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .app-header { background-color: var(--primary-dark); padding: 20px; text-align: center; color: white; }
+        .app-header h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .app-header p { margin: 5px 0 0; opacity: 0.8; font-size: 0.9rem; }
+
+        .content-area { padding: 15px; }
+
+        .settings-box { background: #fffdeb; border: 1px solid #fbc02d; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+        .radio-group { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
+        .radio-group label { font-size: 0.85rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+
+        /* الجدول */
+        .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 340px; }
+        
+        thead th { color: #78909c; padding: 8px 5px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+        .en-sub { display: block; font-size: 0.6rem; color: #b0bec5; font-weight: normal; margin-top: 2px; }
+
+        td { padding: 5px; text-align: center; vertical-align: middle; border-bottom: 1px solid #f1f3f4; }
+        td:first-child { text-align: right; padding-right: 5px; font-weight: 700; font-size: 0.85rem; width: 35%; }
+        
+        /* تحسين ظهور الخانات */
+        input[type="number"] {
+            width: 100%; padding: 10px 0; text-align: center; border: 1px solid #cfd8dc; border-radius: 8px;
+            font-size: 16px; outline: none; transition: 0.2s; inputmode: decimal; font-weight: bold; background: #fff; color: var(--primary-dark);
+            min-width: 50px; /* ضمان عدم اختفاء الخانة */
+        }
+        input[type="number"]:focus { border-color: var(--accent-color); box-shadow: 0 2px 8px rgba(0, 151, 167, 0.1); }
+        input:disabled { background: #f5f5f5; border-color: #eee; color: #bdbdbd; }
+
+        .coeff-input { width: 40px !important; background: transparent !important; border: none !important; border-bottom: 2px dashed #b0bec5 !important; border-radius: 0 !important; color: #78909c; }
+
+        /* الألوان */
+        .score-good { color: var(--success) !important; background-color: #e8f5e9 !important; border-color: var(--success) !important; }
+        .score-bad { color: var(--fail) !important; background-color: #ffebee !important; border-color: var(--fail) !important; }
+        .input-error { border-color: var(--fail) !important; background-color: #ffebee !important; animation: shake 0.3s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-4px); } }
+
+        .buttons-area { display: flex; gap: 10px; margin-top: 20px; }
+        button { border: none; padding: 15px; font-size: 1rem; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .btn-calc { flex: 2; background: var(--accent-color); color: white; }
+        .btn-reset { flex: 1; background: #fff; color: var(--fail); border: 1px solid #ffcdd2; }
+
+        /* الفوتر */
+        .footer { background-color: var(--primary-dark); color: white; padding: 20px; text-align: center; margin-top: auto; }
+        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; }
+        .footer-link { color: #b0bec5; text-decoration: none; font-size: 0.85rem; }
+        .copyright { font-size: 0.75rem; opacity: 0.6; }
+
+        /* النافذة المنبثقة */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .modal-content { background: white; width: 100%; max-width: 350px; border-radius: 20px; overflow: hidden; transform: scale(0.9); opacity: 0; transition: all 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        
+        .result-header { padding: 20px; text-align: center; color: white; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .result-header.success { background-color: var(--success); }
+        .result-header.fail { background-color: var(--fail); }
+        .status-icon { font-size: 2.5rem; line-height: 1; }
+        .status-text { font-size: 1.1rem; font-weight: bold; }
+
+        .result-body { padding: 20px; text-align: center; }
+        .final-grade { font-size: 3.5rem; font-weight: 800; line-height: 1; margin: 10px 0; color: var(--primary-dark); }
+        .mention-badge { display: inline-block; padding: 5px 15px; border-radius: 50px; background: #eceff1; font-weight: bold; margin-bottom: 15px; }
+
+        .credit-section { background: #f9fafb; border-radius: 10px; padding: 12px; border: 1px solid #eee; }
+        .credit-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; }
+        .progress-bg { height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; transition: width 1s ease; border-radius: 10px; }
+
+        .modal-footer { padding: 15px; }
+        .close-modal-btn { width: 100%; padding: 12px; border: none; background: #f1f3f5; font-weight: bold; border-radius: 10px; cursor: pointer; }
+
+        /* قسم الملاحظات */
+        .tips-section { margin-top: 30px; background: #f4f6f8; padding: 15px; border-radius: 12px; }
+        .tip-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; font-size: 0.8rem; color: #607d8b; }
+        .tip-icon { font-size: 1.1rem; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-brand">⚖️ معدلي</div>
+    <div class="nav-links">
+        <a href="https://t.me/droitdzz" target="_blank" class="social-btn btn-telegram">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
+            <span>تليجرام</span>
+        </a>
+        <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" target="_blank" class="social-btn btn-facebook">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="app-header">
+        <h1>حساب المعدل الجامعي</h1>
+        <p>السنة الأولى حقوق (نظام LMD)</p>
+    </div>
+
+    <div class="content-area">
+        <div class="settings-box">
+            <div style="font-size:0.9rem; font-weight:800; margin-bottom:5px;">طريقة الاحتساب حسب نظام جامعتك:</div>
+            <div class="radio-group">
+                <label><input type="radio" name="calcSystem" value="0.6" checked> 60/40</label>
+                <label><input type="radio" name="calcSystem" value="0.5"> 50/50</label>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="35%">المادة <span class="en-sub">Module</span></th>
+                        <th width="15%">المعامل <span class="en-sub"></span></th>
+                        <th width="25%">الامتحان <span class="en-sub">Exam</span></th>
+                        <th width="25%">تطبيق <span class="en-sub">TD</span></th>
+                    </tr>
+                </thead>
+                <tbody id="modules-body">
+                    <tr data-credit="7">
+                        <td>مدخل للعلوم القانونية</td>
+                        <td><input type="number" class="coeff-input" value="2" inputmode="decimal"></td>
+                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                        <td><input type="number" class="td-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                    </tr>
+                    <tr data-credit="7">
+                        <td>القانون الدستوري</td>
+                        <td><input type="number" class="coeff-input" value="2" inputmode="decimal"></td>
+                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                        <td><input type="number" class="td-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                    </tr>
+                    <tr data-credit="3">
+                        <td>مجتمع دولي</td>
+                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
+                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
+                    </tr>
+                    <tr data-credit="4">
+                        <td>التنظيم القضائي</td>
+                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
+                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                        <td><input type="number" class="td-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                    </tr>
+                    <tr data-credit="3">
+                        <td>تاريخ النظم القانونية</td>
+                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
+                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
+                    </tr>
+                    <tr data-credit="4">
+                        <td>منهجية</td>
+                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
+                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
+                    </tr>
+                    <tr data-credit="2">
+                        <td>لغة انجليزية</td>
+                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
+                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="buttons-area">
+            <button class="btn-reset" onclick="resetFields()">مسح الخانات</button>
+            <button class="btn-calc" onclick="calculateFinal()">حساب المعدل</button>
+        </div>
+
+        <div class="tips-section">
+            <div class="tip-item"><span class="tip-icon">✏️</span> تعديل المعامل ممكن بالضغط عليه حسب جامعتك.</div>
+            <div class="tip-item"><span class="tip-icon">🚨</span> اللون الأحمر يعني تحت المعدل 20.</div> 
+            <div class="tip-item"><span class="tip-icon">🎯</span> معدل 10 يساوي 30 رصيد.</div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="https://t.me/droitdzz" class="footer-link">قناة التليجرام ملخصات</a>
+        <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" class="footer-link">اتصل بنا على فيسبوك</a>
+    </div>
+    <div class="copyright">جميع الحقوق محفوظة &copy; 2026</div>
+</footer>
+
+<div class="modal-overlay" id="resultModal" onclick="closeModal(event)">
+    <div class="modal-content">
+        <div id="res-header" class="result-header">
+            <div id="status-icon" class="status-icon"></div>
+            <div id="status-text" class="status-text"></div>
+        </div>
+        <div class="result-body">
+            <div class="grade-label">المعدل الفصلي</div>
+            <div id="final-avg" class="final-grade">00.00</div>
+            <div id="mention-badge" class="mention-badge">--</div>
+            <div class="credit-section">
+                <div class="credit-row"><span>الرصيد المكتسب</span><span id="credit-text">0 / 30</span></div>
+                <div class="progress-bg"><div id="credit-bar" class="progress-bar"></div></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="close-modal-btn" onclick="toggleModal(false)">إغلاق</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateAndColor(input) {
+        let val = parseFloat(input.value);
+        input.classList.remove('score-good', 'score-bad', 'input-error');
+        if (input.value === "") return;
+        if (val > 20) { input.classList.add('input-error'); }
+        else {
+            if (val >= 10) input.classList.add('score-good');
+            else input.classList.add('score-bad');
+        }
+    }
+
+    function calculateFinal() {
+        let errorInputs = document.querySelectorAll('.input-error');
+        if (errorInputs.length > 0) { alert("توجد نقاط خاطئة (>20)!"); return; }
+
+        let filled = false;
+        document.querySelectorAll('.exam-mark').forEach(i => { if(i.value) filled = true; });
+        if(!filled) { alert("أدخل النقاط أولاً"); return; }
+
+        let examRatio = 0.6;
+        document.getElementsByName('calcSystem').forEach(r => { if(r.checked) examRatio = parseFloat(r.value); });
+        let tdRatio = (1 - examRatio).toFixed(1);
+
+        let rows = document.querySelectorAll('#modules-body tr');
+        let totalPoints = 0;
+        let totalCoeff = 0;
+        let partialCredit = 0;
+
+        rows.forEach(row => {
+            let coeff = parseFloat(row.querySelector('.coeff-input').value) || 1;
+            let creditVal = parseFloat(row.getAttribute('data-credit')) || 0;
+            let exam = parseFloat(row.querySelector('.exam-mark').value) || 0;
+            let tdInput = row.querySelector('.td-mark');
+            
+            let moduleAvg = exam;
+            if (tdInput && !tdInput.disabled) {
+                let td = parseFloat(tdInput.value) || 0;
+                moduleAvg = (exam * examRatio) + (td * tdRatio);
+            }
+
+            totalPoints += moduleAvg * coeff;
+            totalCoeff += coeff;
+            if (moduleAvg >= 10) partialCredit += creditVal;
+        });
+
+        let finalAvg = totalCoeff > 0 ? (totalPoints / totalCoeff) : 0;
+        let finalCredit = (finalAvg >= 10) ? 30 : partialCredit;
+
+        showResult(finalAvg, finalCredit);
+    }
+
+    function showResult(avg, credit) {
+        let header = document.getElementById('res-header');
+        let icon = document.getElementById('status-icon');
+        let txt = document.getElementById('status-text');
+        let badge = document.getElementById('mention-badge');
+        let bar = document.getElementById('credit-bar');
+
+        document.getElementById('final-avg').innerText = avg.toFixed(2);
+        document.getElementById('credit-text').innerText = credit + " / 30";
+
+        if (avg < 10) {
+            header.className = "result-header fail";
+            icon.innerText = "☹";
+            txt.innerText = "راسب (Ajourné)";
+            badge.innerText = "زير روحك في السوماستر الدوزيام";
+            badge.style.color = "#c62828"; badge.style.background = "#ffebee";
+            bar.style.backgroundColor = (credit >= 15) ? "#fbc02d" : "#c62828";
+        } else {
+            header.className = "result-header success";
+            icon.innerText = "🎉";
+            txt.innerText = "ناجح (Admis)";
+            if(avg<12) badge.innerText="قريب تولي خباش";
+            else if(avg<14) badge.innerText="قريب من الجيد";
+            else if(avg<16) badge.innerText="جيد";
+            else badge.innerText="ممتاز";
+            badge.style.color = "#2e7d32"; badge.style.background = "#e8f5e9";
+            bar.style.backgroundColor = "#2e7d32";
+        }
+
+        toggleModal(true);
+        setTimeout(() => { bar.style.width = (credit/30)*100 + "%"; }, 300);
+    }
+
+    function toggleModal(show) {
+        let m = document.getElementById('resultModal');
+        if(show) { m.style.display="flex"; setTimeout(()=>m.classList.add('active'),10); }
+        else { m.classList.remove('active'); setTimeout(()=>m.style.display="none",300); document.getElementById('credit-bar').style.width="0%"; }
+    }
+    
+    function closeModal(e) { if(e.target.id === 'resultModal') toggleModal(false); }
+
+    function resetFields() {
+        if(confirm("مسح الكل؟")) {
+            document.querySelectorAll('input[type="number"]:not(.coeff-input)').forEach(i=>{
+                i.value=""; i.classList.remove('score-good','score-bad','input-error');
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
