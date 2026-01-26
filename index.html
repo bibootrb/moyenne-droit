@@ -1,29 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CJLMQ5Y3RJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CJLMQ5Y3RJ');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>معدلي - حقوق</title>
+    <title>معدلي - حقوق (LMD)</title>
     <style>
         :root {
             --primary-dark: #37474f;
             --accent-color: #0097a7;
-            --light-bg: #eceff1;
+            --light-bg: #f8f9fa;
             --white: #ffffff;
             --success: #2e7d32;
             --fail: #c62828;
             --warning: #fbc02d;
-            --telegram: #0088cc;
-            --facebook: #1877f2;
         }
 
         body {
@@ -37,125 +26,173 @@
             min-height: 100vh;
         }
 
-        /* الناف بار */
+        /* --- تصميم الناف بار المتحرك --- */
         .navbar {
-            background-color: var(--white);
-            padding: 15px 20px;
+            background: var(--white);
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
+            border-bottom: 2px solid #f4f4f4;
+            
+            /* التعديلات الجديدة للحركة */
+            position: fixed; /* تثبيت الشريط */
             top: 0;
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box; 
+            z-index: 1000;
+            transition: top 0.4s ease-in-out; /* نعومة الحركة */
         }
-        .nav-brand { font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 5px; }
-        .nav-links { display: flex; gap: 10px; }
-        .social-btn { display: flex; align-items: center; gap: 5px; text-decoration: none; padding: 6px 12px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; }
-        .btn-telegram { background-color: #e3f2fd; color: var(--telegram); }
-        .btn-facebook { background-color: #e8f5fe; color: var(--facebook); }
-        .icon-svg { width: 16px; height: 16px; fill: currentColor; }
 
+        /* كلاس للإخفاء */
+        .navbar.hidden {
+            top: -100px;
+        }
+
+        .nav-brand {
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+
+        .nav-link-item {
+            text-decoration: none;
+            color: #555;
+            font-weight: 700;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link-item:hover { color: var(--accent-color); }
+
+        .nav-link-item::after {
+            content: ''; position: absolute; bottom: 0; right: 0;
+            width: 0; height: 2px; background-color: var(--accent-color);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link-item:hover::after { width: 100%; }
+
+        .icon-svg-mini { width: 20px; height: 20px; fill: currentColor; opacity: 0.8; }
+
+        @media (max-width: 400px) {
+            .link-text { display: none; }
+            .nav-links { gap: 15px; }
+        }
+
+        /* --- الحاوية الرئيسية --- */
         .container {
             max-width: 650px;
             width: 95%;
-            margin: 20px auto;
+            /* زيادة المسافة العلوية لأن الناف بار أصبح Fixed */
+            margin: 100px auto 30px auto; 
             background: var(--white);
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             overflow: hidden;
             flex: 1;
         }
 
-        .app-header { background-color: var(--primary-dark); padding: 20px; text-align: center; color: white; }
-        .app-header h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-        .app-header p { margin: 5px 0 0; opacity: 0.8; font-size: 0.9rem; }
+        .app-header { background-color: var(--primary-dark); padding: 25px; text-align: center; color: white; }
+        .app-header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        .app-header p { margin: 8px 0 0; opacity: 0.8; font-size: 0.95rem; }
 
-        .content-area { padding: 15px; }
+        .content-area { padding: 20px; }
 
-        .settings-box { background: #fffdeb; border: 1px solid #fbc02d; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
-        .radio-group { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
-        .radio-group label { font-size: 0.85rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .settings-box { background: #fffdeb; border: 1px solid #fbc02d; padding: 12px; border-radius: 10px; margin-bottom: 25px; text-align: center; }
+        .radio-group { display: flex; justify-content: center; gap: 20px; margin-top: 8px; }
+        .radio-group label { font-size: 0.9rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
 
-        /* الجدول */
-        .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 15px; }
-        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 340px; }
+        .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; min-width: 350px; }
+        thead th { color: #90a4ae; padding: 10px 5px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .en-sub { display: block; font-size: 0.65rem; color: #b0bec5; font-weight: normal; margin-top: 3px; }
+
+        td { padding: 8px 5px; text-align: center; vertical-align: middle; border-bottom: 1px solid #f1f3f4; }
+        td:first-child { text-align: right; padding-right: 10px; font-weight: 700; font-size: 0.9rem; width: 35%; color: #455a64; }
         
-        thead th { color: #78909c; padding: 8px 5px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
-        .en-sub { display: block; font-size: 0.6rem; color: #b0bec5; font-weight: normal; margin-top: 2px; }
-
-        td { padding: 5px; text-align: center; vertical-align: middle; border-bottom: 1px solid #f1f3f4; }
-        td:first-child { text-align: right; padding-right: 5px; font-weight: 700; font-size: 0.85rem; width: 35%; }
-        
-        /* تحسين ظهور الخانات */
         input[type="number"] {
-            width: 100%; padding: 10px 0; text-align: center; border: 1px solid #cfd8dc; border-radius: 8px;
+            width: 100%; padding: 12px 0; text-align: center; border: 2px solid #eceff1; border-radius: 10px;
             font-size: 16px; outline: none; transition: 0.2s; inputmode: decimal; font-weight: bold; background: #fff; color: var(--primary-dark);
-            min-width: 50px; /* ضمان عدم اختفاء الخانة */
+            min-width: 60px;
         }
-        input[type="number"]:focus { border-color: var(--accent-color); box-shadow: 0 2px 8px rgba(0, 151, 167, 0.1); }
-        input:disabled { background: #f5f5f5; border-color: #eee; color: #bdbdbd; }
+        input[type="number"]:focus { border-color: var(--accent-color); box-shadow: 0 4px 12px rgba(0, 151, 167, 0.15); transform: translateY(-2px); }
+        input:disabled { background: #f8f9fa; border-color: transparent; color: #cfd8dc; box-shadow: none; }
 
-        .coeff-input { width: 40px !important; background: transparent !important; border: none !important; border-bottom: 2px dashed #b0bec5 !important; border-radius: 0 !important; color: #78909c; }
+        .coeff-input { width: 45px !important; background: transparent !important; border: none !important; border-bottom: 2px dashed #cfd8dc !important; border-radius: 0 !important; color: #90a4ae; }
 
-        /* الألوان */
         .score-good { color: var(--success) !important; background-color: #e8f5e9 !important; border-color: var(--success) !important; }
         .score-bad { color: var(--fail) !important; background-color: #ffebee !important; border-color: var(--fail) !important; }
         .input-error { border-color: var(--fail) !important; background-color: #ffebee !important; animation: shake 0.3s; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-4px); } }
 
-        .buttons-area { display: flex; gap: 10px; margin-top: 20px; }
-        button { border: none; padding: 15px; font-size: 1rem; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        .btn-calc { flex: 2; background: var(--accent-color); color: white; }
-        .btn-reset { flex: 1; background: #fff; color: var(--fail); border: 1px solid #ffcdd2; }
+        .buttons-area { display: flex; gap: 15px; margin-top: 25px; }
+        button { border: none; padding: 18px; font-size: 1rem; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        button:active { transform: scale(0.98); }
+        .btn-calc { flex: 2; background: var(--accent-color); color: white; box-shadow: 0 4px 15px rgba(0, 151, 167, 0.3); }
+        .btn-reset { flex: 1; background: #fff; color: var(--fail); border: 2px solid #ffcdd2; }
 
-        /* الفوتر */
-        .footer { background-color: var(--primary-dark); color: white; padding: 20px; text-align: center; margin-top: auto; }
-        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; }
-        .footer-link { color: #b0bec5; text-decoration: none; font-size: 0.85rem; }
-        .copyright { font-size: 0.75rem; opacity: 0.6; }
+        .footer { background-color: var(--primary-dark); color: white; padding: 30px 20px; text-align: center; margin-top: auto; }
+        .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 15px; }
+        .footer-link { color: #b0bec5; text-decoration: none; font-size: 0.9rem; font-weight: bold; transition: 0.2s; }
+        .footer-link:hover { color: white; }
+        .copyright { font-size: 0.8rem; opacity: 0.6; }
 
-        /* النافذة المنبثقة */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(55, 71, 79, 0.8); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(8px); }
         .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
-        .modal-content { background: white; width: 100%; max-width: 350px; border-radius: 20px; overflow: hidden; transform: scale(0.9); opacity: 0; transition: all 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 25px; overflow: hidden; transform: scale(0.9); opacity: 0; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
         
-        .result-header { padding: 20px; text-align: center; color: white; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .result-header { padding: 30px; text-align: center; color: white; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .result-header.success { background-color: var(--success); }
         .result-header.fail { background-color: var(--fail); }
-        .status-icon { font-size: 2.5rem; line-height: 1; }
-        .status-text { font-size: 1.1rem; font-weight: bold; }
+        .status-icon { font-size: 3.5rem; line-height: 1; }
+        .status-text { font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; }
 
-        .result-body { padding: 20px; text-align: center; }
-        .final-grade { font-size: 3.5rem; font-weight: 800; line-height: 1; margin: 10px 0; color: var(--primary-dark); }
-        .mention-badge { display: inline-block; padding: 5px 15px; border-radius: 50px; background: #eceff1; font-weight: bold; margin-bottom: 15px; }
+        .result-body { padding: 30px; text-align: center; }
+        .final-grade { font-size: 4.5rem; font-weight: 900; line-height: 1; margin: 15px 0; color: var(--primary-dark); }
+        .mention-badge { display: inline-block; padding: 8px 20px; border-radius: 50px; background: #eceff1; font-weight: 800; font-size: 1.1rem; margin-bottom: 25px; }
 
-        .credit-section { background: #f9fafb; border-radius: 10px; padding: 12px; border: 1px solid #eee; }
-        .credit-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; }
-        .progress-bg { height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; transition: width 1s ease; border-radius: 10px; }
+        .credit-section { background: #f8f9fa; border-radius: 15px; padding: 20px; border: 2px solid #f1f3f4; }
+        .credit-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 900; font-size: 1rem; color: #546e7a; }
+        .progress-bg { height: 12px; background: #eceff1; border-radius: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; transition: width 1.2s ease-in-out; border-radius: 20px; }
 
-        .modal-footer { padding: 15px; }
-        .close-modal-btn { width: 100%; padding: 12px; border: none; background: #f1f3f5; font-weight: bold; border-radius: 10px; cursor: pointer; }
+        .modal-footer { padding: 20px; }
+        .close-modal-btn { width: 100%; padding: 15px; border: none; background: #f1f3f5; font-weight: 800; font-size: 1.1rem; border-radius: 15px; cursor: pointer; color: var(--primary-dark); transition: 0.2s; }
+        .close-modal-btn:hover { background: #e9ecef; }
 
-        /* قسم الملاحظات */
-        .tips-section { margin-top: 30px; background: #f4f6f8; padding: 15px; border-radius: 12px; }
-        .tip-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; font-size: 0.8rem; color: #607d8b; }
-        .tip-icon { font-size: 1.1rem; }
+        .tips-section { margin-top: 35px; background: #f8f9fa; padding: 25px; border-radius: 16px; border: 1px solid #f1f3f4; }
+        .tip-item { display: flex; gap: 12px; margin-bottom: 12px; align-items: center; font-size: 0.85rem; color: #78909c; font-weight: 500; }
+        .tip-icon { font-size: 1.3rem; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="nav-brand">⚖️ معدلي</div>
+    <a href="#" class="nav-brand">
+        ⚖️ معدلي <span style="color: var(--accent-color);">حقوق</span>
+    </a>
+
     <div class="nav-links">
-        <a href="https://t.me/droitdzz" target="_blank" class="social-btn btn-telegram">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
-            <span>تليجرام</span>
+        <a href="https://t.me/droitdzz" target="_blank" class="nav-link-item">
+             <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
+            <span class="link-text">قناة الملخصات</span>
         </a>
-        <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" target="_blank" class="social-btn btn-facebook">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" target="_blank" class="nav-link-item">
+            <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span class="link-text">فيسبوك</span>
         </a>
     </div>
 </nav>
@@ -163,12 +200,12 @@
 <div class="container">
     <div class="app-header">
         <h1>حساب المعدل الجامعي</h1>
-        <p>السنة الأولى حقوق (نظام LMD)</p>
+        <p>السنة الأولى حقوق (LMD)</p>
     </div>
 
     <div class="content-area">
         <div class="settings-box">
-            <div style="font-size:0.9rem; font-weight:800; margin-bottom:5px;">طريقة الاحتساب حسب نظام جامعتك:</div>
+            <div style="font-size:0.9rem; font-weight:800; margin-bottom:5px;">طريقة الاحتساب:</div>
             <div class="radio-group">
                 <label><input type="radio" name="calcSystem" value="0.6" checked> 60/40</label>
                 <label><input type="radio" name="calcSystem" value="0.5"> 50/50</label>
@@ -186,49 +223,7 @@
                     </tr>
                 </thead>
                 <tbody id="modules-body">
-                    <tr data-credit="7">
-                        <td>مدخل للعلوم القانونية</td>
-                        <td><input type="number" class="coeff-input" value="2" inputmode="decimal"></td>
-                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                        <td><input type="number" class="td-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                    </tr>
-                    <tr data-credit="7">
-                        <td>القانون الدستوري</td>
-                        <td><input type="number" class="coeff-input" value="2" inputmode="decimal"></td>
-                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                        <td><input type="number" class="td-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                    </tr>
-                    <tr data-credit="3">
-                        <td>مجتمع دولي</td>
-                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
-                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
-                    </tr>
-                    <tr data-credit="4">
-                        <td>التنظيم القضائي</td>
-                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
-                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                        <td><input type="number" class="td-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                    </tr>
-                    <tr data-credit="3">
-                        <td>تاريخ النظم القانونية</td>
-                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
-                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
-                    </tr>
-                    <tr data-credit="4">
-                        <td>منهجية</td>
-                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
-                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
-                    </tr>
-                    <tr data-credit="2">
-                        <td>لغة انجليزية</td>
-                        <td><input type="number" class="coeff-input" value="1" inputmode="decimal"></td>
-                        <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
-                        <td><input type="number" class="td-mark" disabled style="background:#f5f5f5;" placeholder="×"></td>
-                    </tr>
-                </tbody>
+                    </tbody>
             </table>
         </div>
 
@@ -238,19 +233,19 @@
         </div>
 
         <div class="tips-section">
-            <div class="tip-item"><span class="tip-icon">✏️</span> تعديل المعامل ممكن بالضغط عليه حسب جامعتك.</div>
-            <div class="tip-item"><span class="tip-icon">🚨</span> اللون الأحمر يعني تحت المعدل 20.</div> 
-            <div class="tip-item"><span class="tip-icon">🎯</span> معدل 10 يساوي 30 رصيد.</div>
+            <div class="tip-item"><span class="tip-icon">✏️</span> تعديل المعامل ممكن بالضغط عليه.</div>
+            <div class="tip-item"><span class="tip-icon">🚨</span> اللون الأحمر يعني نقطة > 20.</div>
+            <div class="tip-item"><span class="tip-icon">🎯</span> معدل 10 = 30 رصيد.</div>
         </div>
     </div>
 </div>
 
 <footer class="footer">
     <div class="footer-links">
-        <a href="https://t.me/droitdzz" class="footer-link">قناة التليجرام ملخصات</a>
-        <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" class="footer-link">اتصل بنا على فيسبوك</a>
+        <a href="https://t.me/droitdzz" class="footer-link">قناة التليجرام</a>
+        <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" class="footer-link">فيسبوك</a>
     </div>
-    <div class="copyright">جميع الحقوق محفوظة &copy; 2026</div>
+    <div class="copyright">جميع الحقوق محفوظة &copy; 2024</div>
 </footer>
 
 <div class="modal-overlay" id="resultModal" onclick="closeModal(event)">
@@ -275,6 +270,37 @@
 </div>
 
 <script>
+    // مواد السنة الأولى (السداسي الأول فقط)
+    const modules = [
+        { name: "مدخل للعلوم القانونية", coeff: 2, credit: 7, hasTD: true },
+        { name: "القانون الدستوري", coeff: 2, credit: 7, hasTD: true },
+        { name: "مجتمع دولي", coeff: 1, credit: 3, hasTD: false },
+        { name: "التنظيم القضائي", coeff: 1, credit: 4, hasTD: true },
+        { name: "تاريخ النظم", coeff: 1, credit: 3, hasTD: false },
+        { name: "منهجية", coeff: 1, credit: 4, hasTD: false },
+        { name: "مصطلحات", coeff: 1, credit: 2, hasTD: false }
+    ];
+
+    function renderTable() {
+        const tbody = document.getElementById('modules-body');
+        tbody.innerHTML = '';
+        modules.forEach((mod) => {
+            let tdInput = mod.hasTD 
+                ? `<input type="number" class="td-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)">` 
+                : `<input type="number" class="td-mark" disabled style="background:#f8f9fa;" placeholder="×">`;
+            
+            let row = `
+                <tr data-credit="${mod.credit}">
+                    <td>${mod.name}</td>
+                    <td><input type="number" class="coeff-input" value="${mod.coeff}" inputmode="decimal"></td>
+                    <td><input type="number" class="exam-mark" placeholder="-" inputmode="decimal" step="0.01" oninput="validateAndColor(this)"></td>
+                    <td>${tdInput}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+    }
+
     function validateAndColor(input) {
         let val = parseFloat(input.value);
         input.classList.remove('score-good', 'score-bad', 'input-error');
@@ -340,14 +366,14 @@
             header.className = "result-header fail";
             icon.innerText = "☹";
             txt.innerText = "راسب (Ajourné)";
-            badge.innerText = "زير روحك في السوماستر الدوزيام";
+            badge.innerText = "للأسف";
             badge.style.color = "#c62828"; badge.style.background = "#ffebee";
             bar.style.backgroundColor = (credit >= 15) ? "#fbc02d" : "#c62828";
         } else {
             header.className = "result-header success";
             icon.innerText = "🎉";
             txt.innerText = "ناجح (Admis)";
-            if(avg<12) badge.innerText="قريب تولي خباش";
+            if(avg<12) badge.innerText="مقبول";
             else if(avg<14) badge.innerText="قريب من الجيد";
             else if(avg<16) badge.innerText="جيد";
             else badge.innerText="ممتاز";
@@ -374,6 +400,23 @@
             });
         }
     }
+
+    // --- كود إخفاء وإظهار الناف بار عند التمرير ---
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+            navbar.classList.add('hidden'); // إخفاء عند النزول
+        } else {
+            navbar.classList.remove('hidden'); // إظهار عند الصعود
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+
+    renderTable();
+
 </script>
 
 </body>
