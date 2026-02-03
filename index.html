@@ -75,7 +75,9 @@
             display: block; font-weight: 700; font-size: 0.9rem; border-bottom: 1px solid #f9f9f9;
         }
         .dropdown-content a:hover { background: var(--light-bg); color: var(--accent-color); }
-        .dropdown:hover .dropdown-content { display: block; }
+        
+        /* تعديل لإظهار القائمة عند الضغط أو الحوم */
+        .dropdown:hover .dropdown-content, .dropdown.active .dropdown-content { display: block; }
 
         .nav-link-item {
             text-decoration: none; color: #555; font-weight: 700; font-size: 0.95rem;
@@ -116,8 +118,9 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links .dropdown { display: none; }
-            .menu-toggle { display: block; }
+            .nav-links { display: none; } /* إخفاء الروابط في الجوال لمنع التداخل مع الزر واللوغو */
+            .menu-toggle { display: block; order: 1; } /* ترتيبه الأول جهة اليمين */
+            .nav-brand { order: 2; } /* اللوغو يأتي بعده */
             .navbar { padding: 10px 20px; }
         }
 
@@ -189,36 +192,35 @@
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-4px); } }
 		.link-image {
 	display:block;		
-    max-width: 95%;    /* تضمن عدم خروج الصورة عن حدود الشاشة */
+    max-width: 95%;    
 	margin: 20px auto;
-    height: auto;       /* تحافظ على أبعاد الصورة */
-    border-radius: 12px; /* حواف دائرية أنيقة */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* حركة ناعمة */
+    height: auto;       
+    border-radius: 12px; 
+    transition: transform 0.3s ease, opacity 0.3s ease; 
     cursor: pointer;
 }
 
-/* تأثير عند تمرير الماوس */
 .link-image:hover {
-    transform: scale(1.02); /* تكبير بسيط جداً */
-    opacity: 0.9;           /* شفافية بسيطة */
+    transform: scale(1.02); 
+    opacity: 0.9;           
 }
 .simple-caption {
-    text-align: center;       /* جعل النص في الوسط */
-    margin-top: 12px;         /* مسافة بين الصورة والنص */
-    margin-bottom: 25px;      /* مسافة تحت النص */
-    font-size: 0.8rem;       /* حجم الخط */
-    color: var(--primary-dark); /* لون النص (نفس لون العناوين) */
-    font-weight: 500;         /* جعل الخط سميكاً */
+    text-align: center;       
+    margin-top: 12px;         
+    margin-bottom: 25px;      
+    font-size: 0.8rem;       
+    color: var(--primary-dark); 
+    font-weight: 500;         
 }
-
-
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <nav class="navbar">
+    <button class="menu-toggle" onclick="openNav()">☰</button>
     <a href="#" class="nav-brand">⚖️ معدلي <span style="color: var(--accent-color);">حقوق</span></a>
+    
     <div class="nav-links">
         <a href="https://t.me/droitdzz" target="_blank" class="nav-link-item">
             <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
@@ -229,7 +231,6 @@
             <span class="link-text">فيسبوك</span>
         </a>
     </div>
-    <button class="menu-toggle" onclick="openNav()">☰</button>
 </nav>
 
 <div id="mySidenav" class="sidenav">
@@ -251,14 +252,12 @@
         <p>السنة الأولى حقوق (LMD)</p>
     </div>
 	<a target="_blank">
-    <img src="https://raw.githubusercontent.com/bibootrb/my-site-images/main/Banner.png
-" alt="وصف الصورة" class="link-image">
-
-</a>
+        <img src="https://raw.githubusercontent.com/bibootrb/my-site-images/main/Banner.png" alt="وصف الصورة" class="link-image">
+    </a>
 
     <div class="content-area">
         
-        <div class="dropdown" style="width: 100%; margin-bottom: 10px;">
+        <div class="dropdown" style="width: 100%; margin-bottom: 10px;" onclick="this.classList.toggle('active')">
             <div class="dropbtn" style="width: 100%; justify-content: space-between; box-sizing: border-box; padding: 12px 20px; border-radius: 50px;">
                 <span>🎓 السنوات الدراسية</span>
                 <span style="font-size: 0.7rem;">▼</span>
@@ -323,13 +322,9 @@
             <div style="margin-top:5px">🚨 اللون الأحمر يعني نقطة أكبر من 20.</div>
         </div>
 		<a href="https://t.me/droitdzz" target="_blank" style="display:block; text-align:center; margin:20px auto;">
-    <img src="https://cdn.jsdelivr.net/gh/bibootrb/my-site-images@main/IMG_2189.png"
-         alt="وصف الصورة" 
-         style="max-width:650px; width:95%; height:auto; border-radius:12px; box-shadow: 0 4px 15px rgba(0,0,0,0.0);">
-		 </a>
-		 <div class="simple-caption">للتواصل أو الإستفسار تواصلوا معي</div>
-
-
+            <img src="https://cdn.jsdelivr.net/gh/bibootrb/my-site-images@main/IMG_2189.png" alt="وصف الصورة" style="max-width:650px; width:95%; height:auto; border-radius:12px;">
+		</a>
+		<div class="simple-caption">للتواصل أو الإستفسار تواصلوا معي</div>
     </div>
 </div>
 	
