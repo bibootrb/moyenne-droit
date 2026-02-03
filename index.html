@@ -2,14 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJLMQ5Y3RJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // 👇👇 ضع رمزك هنا مكان X 👇👇
-  gtag('config', 'G-CJLMQ5Y3RJ');
-</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CJLMQ5Y3RJ');
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -56,6 +54,29 @@
         }
 
         .nav-links { display: flex; gap: 20px; align-items: center; }
+        
+        /* --- القائمة المنسدلة للسنوات --- */
+        .dropdown { position: relative; display: inline-block; }
+        .dropbtn {
+            background: var(--light-bg); color: var(--primary-dark);
+            padding: 8px 15px; border-radius: 50px; font-weight: 800;
+            cursor: pointer; border: 1px solid #eee; display: flex; align-items: center; gap: 5px;
+            font-size: 0.9rem; transition: 0.3s;
+        }
+        .dropbtn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        
+        .dropdown-content {
+            display: none; position: absolute; top: 110%; right: 0;
+            background: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 12px; z-index: 1001; overflow: hidden; border: 1px solid #eee;
+        }
+        .dropdown-content a {
+            color: var(--primary-dark); padding: 12px 16px; text-decoration: none;
+            display: block; font-weight: 700; font-size: 0.9rem; border-bottom: 1px solid #f9f9f9;
+        }
+        .dropdown-content a:hover { background: var(--light-bg); color: var(--accent-color); }
+        .dropdown:hover .dropdown-content { display: block; }
+
         .nav-link-item {
             text-decoration: none; color: #555; font-weight: 700; font-size: 0.95rem;
             position: relative; padding: 5px 0; transition: color 0.3s;
@@ -68,7 +89,37 @@
         }
         .nav-link-item:hover::after { width: 100%; }
         .icon-svg-mini { width: 20px; height: 20px; fill: currentColor; opacity: 0.8; }
-        @media (max-width: 400px) { .link-text { display: none; } .nav-links { gap: 15px; } }
+
+        .menu-toggle {
+            display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark);
+            background: none; border: none; padding: 0;
+        }
+
+        /* --- القائمة الجانبية --- */
+        .sidenav {
+            height: 100%; width: 0; position: fixed; z-index: 2000;
+            top: 0; right: 0; background-color: var(--white);
+            overflow-x: hidden; transition: 0.4s; padding-top: 60px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+        .sidenav a {
+            padding: 15px 25px; text-decoration: none; font-size: 1.1rem;
+            color: var(--primary-dark); display: block; transition: 0.3s; font-weight: 800;
+        }
+        .sidenav a:hover { background: var(--light-bg); color: var(--accent-color); }
+        .sidenav .closebtn { position: absolute; top: 10px; left: 15px; font-size: 30px; }
+        .sidenav-header { padding: 0 25px 15px; border-bottom: 1px solid #eee; margin-bottom: 10px; font-weight: 900; color: var(--accent-color); }
+
+        .overlay {
+            position: fixed; display: none; width: 100%; height: 100%;
+            top: 0; left: 0; background: rgba(0,0,0,0.4); z-index: 1999; backdrop-filter: blur(3px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links .dropdown { display: none; }
+            .menu-toggle { display: block; }
+            .navbar { padding: 10px 20px; }
+        }
 
         /* --- المحتوى --- */
         .container {
@@ -83,7 +134,6 @@
 
         .content-area { padding: 20px; }
 
-        /* تنسيق القائمة المنسدلة */
         .semester-select {
             width: 100%; padding: 12px; font-size: 1rem;
             border: 2px solid var(--accent-color); border-radius: 50px;
@@ -109,15 +159,11 @@
             font-size: 16px; font-weight: bold; outline: none; transition: 0.2s; background: #fff;
         }
         input:focus { border-color: var(--accent-color); transform: translateY(-2px); }
-        input:disabled { background: #f8f9fa; border-color: transparent; }
-        .coeff-input { width: 45px !important; border: none !important; border-bottom: 2px dashed #cfd8dc !important; border-radius: 0 !important; }
 
-        /* --- تنسيق قسم المعدل السنوي --- */
-        #annual-section { display: none; text-align: center; padding: 20px 0; }
+        #annual-section, #rescue-section { display: none; text-align: center; padding: 20px 0; }
         .annual-input-group { margin-bottom: 20px; }
         .annual-label { display: block; font-weight: bold; color: #546e7a; margin-bottom: 8px; }
         .annual-input { width: 80%; max-width: 200px; font-size: 1.2rem; padding: 15px; border: 2px solid #eceff1; border-radius: 15px; text-align: center; outline: none; }
-        .annual-input:focus { border-color: var(--accent-color); }
 
         .buttons-area { display: flex; gap: 15px; margin-top: 25px; }
         button { border: none; padding: 18px; font-size: 1rem; border-radius: 12px; font-weight: 800; cursor: pointer; flex: 1; transition: 0.2s; }
@@ -127,13 +173,13 @@
         .footer { background-color: var(--primary-dark); color: white; padding: 30px 20px; text-align: center; margin-top: auto; }
         .footer-link { color: #b0bec5; text-decoration: none; font-weight: bold; margin: 0 10px; }
         
-        /* النافذة المنبثقة */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(55, 71, 79, 0.8); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
         .modal-content { background: white; width: 90%; max-width: 380px; border-radius: 25px; padding: 0; overflow: hidden; transform: scale(0.9); opacity: 0; transition: 0.3s; }
         .result-header { padding: 30px; text-align: center; color: white; }
         .result-header.success { background: var(--success); }
         .result-header.fail { background: var(--fail); }
+        .result-header.info { background: var(--accent-color); }
         .final-grade { font-size: 4.5rem; font-weight: 900; margin: 15px 0; color: var(--primary-dark); }
         .close-modal-btn { width: 100%; padding: 15px; background: #f1f3f5; border: none; font-weight: 800; cursor: pointer; }
 
@@ -141,26 +187,61 @@
         .score-bad { background-color: #ffebee !important; border-color: var(--fail) !important; }
         .input-error { border-color: var(--fail) !important; background-color: #ffebee !important; animation: shake 0.3s; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-4px); } }
+		.link-image {
+    max-width: 100%;    /* تضمن عدم خروج الصورة عن حدود الشاشة */
+    height: auto;       /* تحافظ على أبعاد الصورة */
+    border-radius: 12px; /* حواف دائرية أنيقة */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* حركة ناعمة */
+    cursor: pointer;
+}
+
+/* تأثير عند تمرير الماوس */
+.link-image:hover {
+    transform: scale(1.02); /* تكبير بسيط جداً */
+    opacity: 0.9;           /* شفافية بسيطة */
+}
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <nav class="navbar">
-    <a href="#" class="nav-brand">
-        ⚖️ معدلي <span style="color: var(--accent-color);">حقوق</span>
-    </a>
+    <a href="#" class="nav-brand">⚖️ معدلي <span style="color: var(--accent-color);">حقوق</span></a>
     <div class="nav-links">
+        <div class="dropdown">
+            <div class="dropbtn">🎓 السنوات <span style="font-size: 0.7rem;">▼</span></div>
+            <div class="dropdown-content">
+                <a href="index.html">السنة الأولى (L1)</a>
+                <a href="soon.html">السنة الثانية (L2)</a>
+                <a href="soon.html">السنة الثالثة (L3)</a>
+            </div>
+        </div>
+
         <a href="https://t.me/droitdzz" target="_blank" class="nav-link-item">
-             <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
+            <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
             <span class="link-text">قناة الملخصات</span>
         </a>
         <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" target="_blank" class="nav-link-item">
             <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             <span class="link-text">فيسبوك</span>
         </a>
+        <button class="menu-toggle" onclick="openNav()">☰</button>
     </div>
 </nav>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="sidenav-header">🎓 السنوات الدراسية</div>
+    <a href="index.html">السنة الأولى (L1)</a>
+    <a href="soon.html">السنة الثانية (L2)</a>
+    <a href="soon.html">السنة الثالثة (L3)</a>
+    <div style="border-top:1px solid #eee; margin:15px 0;"></div>
+    <a href="https://t.me/droitdzz" style="font-size:0.9rem; color:#888;">تليجرام</a>
+    <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" style="font-size:0.9rem; color:#888;">فيسبوك</a>
+</div>
+
+<div id="overlay" class="overlay" onclick="closeNav()"></div>
 
 <div class="container">
     <div class="app-header">
@@ -173,7 +254,12 @@
             <option value="s1">🎓 السداسي الأول</option>
             <option value="s2">⚖️ السداسي الثاني</option>
             <option value="annual">📅 المعدل السنوي</option>
+            <option value="rescue">🎯 حاسبة الإنقاذ</option>
         </select>
+		<a target="_blank">
+    <img src="https://raw.githubusercontent.com/bibootrb/my-site-images/main/Banner.png
+" alt="وصف الصورة" class="link-image">
+</a>
 
         <div id="settings-box" class="settings-box">
             <div style="font-size:0.9rem; font-weight:800; margin-bottom:5px;">طريقة الاحتساب:</div>
@@ -183,7 +269,7 @@
             </div>
         </div>
 
-        <div id="table-wrapper" class="table-wrapper">
+        <div id="table-wrapper">
             <table>
                 <thead>
                     <tr><th>المقياس</th><th width="15%">المعامل</th><th>امتحان</th><th>TD</th></tr>
@@ -203,21 +289,35 @@
             </div>
         </div>
 
+        <div id="rescue-section">
+            <div style="background: #e0f7fa; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem;">أدخل معدل السداسي الأول لتعرف ما تحتاجه للنجاح السنوي.</div>
+            <div class="annual-input-group">
+                <span class="annual-label">معدل السداسي الأول الحالي</span>
+                <input type="number" id="rescue-s1" class="annual-input" placeholder="00.00" step="0.01">
+            </div>
+        </div>
+
         <div class="buttons-area">
             <button id="reset-btn" class="btn-reset" onclick="resetFields()">مسح</button>
             <button class="btn-calc" onclick="handleCalculation()">حساب النتيجة</button>
         </div>
 
-        <div id="tips-section" class="tips-section" style="margin-top:30px; background:#f8f9fa; padding:15px; border-radius:10px; font-size:0.85rem; color:#78909c;">
+        <div id="tips-section" style="margin-top:30px; background:#f8f9fa; padding:15px; border-radius:10px; font-size:0.85rem; color:#78909c;">
             <div>✏️ اضغط على المعامل لتغييره.</div>
             <div style="margin-top:5px">🚨 اللون الأحمر يعني نقطة أكبر من 20.</div>
         </div>
+		<a href="https://t.me/droitdzz" target="_blank" style="display:block; text-align:center; margin:20px auto;">
+    <img src="https://cdn.jsdelivr.net/gh/bibootrb/my-site-images@main/IMG_2189.png" 
+         alt="وصف الصورة" 
+         style="max-width:650px; width:95%; height:auto; border-radius:12px; box-shadow: 0 4px 15px rgba(0,0,0,0.0);">
+</a>
+
     </div>
 </div>
 
 <footer class="footer">
     <div style="margin-bottom:10px">
-        <a href="https://t.me/droitdzz" class="footer-link">قناة التليجرام</a>
+        <a href="https://t.me/droitdzz" class="footer-link">تليجرام</a>
         <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr" class="footer-link">فيسبوك</a>
     </div>
     <div class="copyright">جميع الحقوق محفوظة &copy; 2026</div>
@@ -233,17 +333,16 @@
             <div style="color:#546e7a; font-weight:bold" id="result-label">المعدل الفصلي</div>
             <div id="final-avg" class="final-grade">00.00</div>
             <div id="mention-badge" style="background:#eceff1; padding:5px 15px; border-radius:20px; font-weight:bold">--</div>
-            <div style="margin-top:15px; font-weight:bold; color:#546e7a">
-                الرصيد: <span id="credit-text">0 / 60</span>
-            </div>
+            <div style="margin-top:15px; font-weight:bold; color:#546e7a">رصيد: <span id="credit-text">---</span></div>
         </div>
-        <div style="padding:20px">
-            <button class="close-modal-btn" onclick="toggleModal(false)">إغلاق</button>
-        </div>
+        <button class="close-modal-btn" onclick="toggleModal(false)">إغلاق</button>
     </div>
 </div>
 
 <script>
+    function openNav() { document.getElementById("mySidenav").style.width = "260px"; document.getElementById("overlay").style.display = "block"; }
+    function closeNav() { document.getElementById("mySidenav").style.width = "0"; document.getElementById("overlay").style.display = "none"; }
+
     const modulesS1 = [
         { name: "مدخل للعلوم القانونية", coeff: 2, credit: 7, hasTD: true },
         { name: "القانون الدستوري", coeff: 2, credit: 7, hasTD: true },
@@ -265,28 +364,24 @@
     ];
 
     let currentModules = modulesS1;
-    let mode = 's1'; // s1, s2, annual
+    let mode = 's1'; 
 
     function updateSemester() {
         mode = document.getElementById('semesterSelect').value;
         const table = document.getElementById('table-wrapper');
         const annual = document.getElementById('annual-section');
+        const rescue = document.getElementById('rescue-section');
         const settings = document.getElementById('settings-box');
         const tips = document.getElementById('tips-section');
         const resetBtn = document.getElementById('reset-btn');
 
-        if (mode === 'annual') {
-            table.style.display = 'none';
-            settings.style.display = 'none';
-            tips.style.display = 'none';
-            resetBtn.style.display = 'none'; // لا نحتاج زر المسح في السنوي
-            annual.style.display = 'block';
-        } else {
-            table.style.display = 'block';
-            settings.style.display = 'block';
-            tips.style.display = 'block';
-            resetBtn.style.display = 'block';
-            annual.style.display = 'none';
+        table.style.display = 'none'; annual.style.display = 'none'; rescue.style.display = 'none';
+        settings.style.display = 'none'; tips.style.display = 'none'; resetBtn.style.display = 'none';
+
+        if (mode === 'annual') { annual.style.display = 'block'; }
+        else if (mode === 'rescue') { rescue.style.display = 'block'; }
+        else {
+            table.style.display = 'block'; settings.style.display = 'block'; tips.style.display = 'block'; resetBtn.style.display = 'block';
             currentModules = (mode === 's1') ? modulesS1 : modulesS2;
             renderTable();
         }
@@ -294,125 +389,82 @@
 
     function renderTable() {
         const tbody = document.getElementById('modules-body');
-        tbody.innerHTML = '';
-        currentModules.forEach((mod) => {
-            let tdInput = mod.hasTD 
-                ? `<input type="number" class="td-mark" placeholder="-" step="0.01" oninput="validateAndColor(this)">` 
-                : `<input type="number" class="td-mark" disabled style="background:#f8f9fa;" placeholder="×">`;
-            
-            let row = `
-                <tr data-credit="${mod.credit}">
-                    <td>${mod.name}</td>
-                    <td><input type="number" class="coeff-input" value="${mod.coeff}"></td>
-                    <td><input type="number" class="exam-mark" placeholder="-" step="0.01" oninput="validateAndColor(this)"></td>
-                    <td>${tdInput}</td>
-                </tr>
-            `;
-            tbody.innerHTML += row;
-        });
+        tbody.innerHTML = currentModules.map((mod) => `
+            <tr data-credit="${mod.credit}">
+                <td>${mod.name}</td>
+                <td><input type="number" class="coeff-input" value="${mod.coeff}"></td>
+                <td><input type="number" class="exam-mark" placeholder="-" oninput="validateAndColor(this)"></td>
+                <td>${mod.hasTD ? `<input type="number" class="td-mark" placeholder="-" oninput="validateAndColor(this)">` : `<input type="number" disabled style="background:#f8f9fa;" placeholder="×">`}</td>
+            </tr>
+        `).join('');
     }
 
     function validateAndColor(input) {
         let val = parseFloat(input.value);
         input.classList.remove('score-good', 'score-bad', 'input-error');
         if (input.value === "") return;
-        if (val > 20) { input.classList.add('input-error'); }
-        else {
-            if (val >= 10) input.classList.add('score-good');
-            else input.classList.add('score-bad');
-        }
+        if (val > 20) input.classList.add('input-error');
+        else if (val >= 10) input.classList.add('score-good');
+        else input.classList.add('score-bad');
     }
 
     function handleCalculation() {
-        if (mode === 'annual') {
-            calculateAnnual();
-        } else {
-            calculateSemester();
-        }
+        if (mode === 'annual') calculateAnnual();
+        else if (mode === 'rescue') calculateRescue();
+        else calculateSemester();
     }
 
     function calculateSemester() {
-        let errorInputs = document.querySelectorAll('.input-error');
-        if (errorInputs.length > 0) { alert("توجد نقاط خاطئة (>20)!"); return; }
-
-        let filled = false;
-        document.querySelectorAll('.exam-mark').forEach(i => { if(i.value) filled = true; });
-        if(!filled) { alert("أدخل النقاط أولاً"); return; }
-
         let examRatio = 0.6;
         document.getElementsByName('calcSystem').forEach(r => { if(r.checked) examRatio = parseFloat(r.value); });
         let tdRatio = (1 - examRatio).toFixed(1);
-
         let rows = document.querySelectorAll('#modules-body tr');
-        let totalPoints = 0;
-        let totalCoeff = 0;
-        let partialCredit = 0;
+        let totalPoints = 0, totalCoeff = 0, partialCredit = 0;
 
         rows.forEach(row => {
             let coeff = parseFloat(row.querySelector('.coeff-input').value) || 1;
-            let creditVal = parseFloat(row.getAttribute('data-credit')) || 0;
             let exam = parseFloat(row.querySelector('.exam-mark').value) || 0;
             let tdInput = row.querySelector('.td-mark');
-            
-            let moduleAvg = exam;
-            if (tdInput && !tdInput.disabled) {
-                let td = parseFloat(tdInput.value) || 0;
-                moduleAvg = (exam * examRatio) + (td * tdRatio);
-            }
-
-            totalPoints += moduleAvg * coeff;
-            totalCoeff += coeff;
-            if (moduleAvg >= 10) partialCredit += creditVal;
+            let moduleAvg = tdInput && !tdInput.disabled ? (exam * examRatio) + (parseFloat(tdInput.value || 0) * tdRatio) : exam;
+            totalPoints += moduleAvg * coeff; totalCoeff += coeff;
+            if (moduleAvg >= 10) partialCredit += parseFloat(row.getAttribute('data-credit'));
         });
-
-        let finalAvg = totalCoeff > 0 ? (totalPoints / totalCoeff) : 0;
-        let finalCredit = (finalAvg >= 10) ? 30 : partialCredit;
-
-        showResult(finalAvg, finalCredit, false);
+        let finalAvg = totalPoints / totalCoeff;
+        showResult(finalAvg, (finalAvg >= 10 ? 30 : partialCredit) + " / 30", "فصلي");
     }
 
     function calculateAnnual() {
         let s1 = parseFloat(document.getElementById('avg-s1').value);
         let s2 = parseFloat(document.getElementById('avg-s2').value);
-
         if (isNaN(s1) || isNaN(s2)) { alert("أدخل معدل السداسيين"); return; }
-        if (s1 > 20 || s2 > 20) { alert("المعدل لا يمكن أن يفوق 20"); return; }
-
         let annualAvg = (s1 + s2) / 2;
-        // في النظام السنوي، إذا المعدل >= 10 يحصل على 60 رصيد، وإلا يحسب بالتقريب (هنا سنبسطها)
-        let annualCredit = annualAvg >= 10 ? 60 : "---";
-
-        showResult(annualAvg, annualCredit, true);
+        showResult(annualAvg, (annualAvg >= 10 ? 60 : "---") + " / 60", "سنوي");
     }
 
-    function showResult(avg, credit, isAnnual) {
+    function calculateRescue() {
+        let s1 = parseFloat(document.getElementById('rescue-s1').value);
+        if (isNaN(s1)) { alert("أدخل معدل السداسي الأول"); return; }
+        let needed = (10 * 2) - s1;
+        showResult(needed, "السداسي الثاني", "هدف");
+    }
+
+    function showResult(avg, credit, type) {
         let header = document.getElementById('res-header');
         let icon = document.getElementById('status-icon');
-        let txt = document.getElementById('status-text');
         let badge = document.getElementById('mention-badge');
         let label = document.getElementById('result-label');
-
-        label.innerText = isAnnual ? "المعدل السنوي" : "المعدل الفصلي";
-        document.getElementById('final-avg').innerText = avg.toFixed(2);
         
-        let maxCredit = isAnnual ? 60 : 30;
-        document.getElementById('credit-text').innerText = credit === "---" ? "---" : credit + " / " + maxCredit;
+        label.innerText = type === "هدف" ? "الدرجة المطلوبة للنجاح" : "المعدل ال" + type;
+        document.getElementById('final-avg').innerText = avg.toFixed(2);
+        document.getElementById('credit-text').innerText = credit;
 
-        if (avg < 10) {
-            header.className = "result-header fail";
-            icon.innerText = "☹";
-            txt.innerText = isAnnual ? "راسب (Ajourné)" : "راسب (Ajourné)";
-            badge.innerText = "زير روحك";
+        if (type === "هدف") {
+            header.className = "result-header info"; icon.innerText = "🎯";
+            badge.innerText = avg <= 10 ? "مهمة سهلة" : avg <= 12 ? "ممكنة بالاجتهاد" : "تحدي كبير";
         } else {
-            header.className = "result-header success";
-            icon.innerText = "🎉";
-            txt.innerText = isAnnual ? "ناجح (Admis)" : "ناجح (Admis)";
-            if(avg<12) badge.innerText="خباش";
-            else if(avg<14) badge.innerText="قريب من الجيد";
-            else if(avg<16) badge.innerText="جيد";
-            else badge.innerText="ممتاز";
+            if (avg < 10) { header.className = "result-header fail"; icon.innerText = "☹"; badge.innerText = "راسب"; }
+            else { header.className = "result-header success"; icon.innerText = "🎉"; badge.innerText = "ناجح"; }
         }
-
         toggleModal(true);
     }
 
@@ -423,24 +475,17 @@
     }
 
     function resetFields() {
-        if(confirm("مسح الكل؟")) {
-            document.querySelectorAll('input[type="number"]:not(.coeff-input)').forEach(i=>{
-                i.value=""; i.classList.remove('score-good','score-bad','input-error');
-            });
-        }
+        document.querySelectorAll('input[type="number"]:not(.coeff-input)').forEach(i => { i.value=""; i.classList.remove('score-good','score-bad','input-error'); });
     }
 
     let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop > lastScrollTop) { navbar.classList.add('hidden'); }
-        else { navbar.classList.remove('hidden'); }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    window.addEventListener('scroll', () => {
+        let st = window.pageYOffset || document.documentElement.scrollTop;
+        document.querySelector('.navbar').classList.toggle('hidden', st > lastScrollTop && st > 100);
+        lastScrollTop = st;
     });
 
-    renderTable(); // تشغيل الجدول عند البداية
+    renderTable(); 
 </script>
-
 </body>
 </html>
