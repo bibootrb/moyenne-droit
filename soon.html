@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>قريباً - معدلي حقوق</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #37474f;
+            --accent-color: #0097a7;
+            --light-grey: #78909c;
+            --bg-color: #ffffff;
+        }
+
+        /* تصفير الهوامش لضمان ملء الشاشة */
+        * { box-sizing: border-box; }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-dark);
+            /* توسيط المحتوى عمودياً وأفقياً */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* لمنع التمرير غير الضروري */
+        }
+
+        .soon-container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .icon {
+            font-size: clamp(3rem, 10vw, 4.5rem); /* حجم مرن للأيقونة */
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 8vw, 2.8rem); /* خط يتصاغر مع الشاشة */
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            font-size: clamp(1rem, 4vw, 1.15rem);
+            color: var(--light-grey);
+            margin: 16px auto 32px;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 14px 35px;
+            border: 2.5px solid var(--primary-dark);
+            border-radius: 50px;
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent; /* منع اللون الأزرق عند اللمس في آيفون */
+        }
+
+        /* تأثيرات اللمس للموبايل */
+        .back-btn:active {
+            transform: scale(0.95);
+            background-color: #f5f5f5;
+        }
+
+        @media (min-width: 769px) {
+            .back-btn:hover {
+                background-color: var(--primary-dark);
+                color: white;
+                box-shadow: 0 10px 20px rgba(55, 71, 79, 0.15);
+            }
+        }
+
+        /* أنيميشن الظهور السلس */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="soon-container">
+        <div class="icon">⚖️</div>
+        <h1>قريبا جدا</h1>
+        <p>المحتوى الخاص بهذه السنة قيد التطوير حالياً، وسيكون متاحاً للطلبة  في أقرب وقت .</p>
+		
+        <a href="https://t.me/droitdzz" target="_blank" style="display:block; text-align:center; margin:20px auto;">
+            <img src="https://cdn.jsdelivr.net/gh/bibootrb/my-site-images@main/IMG_2189.png" alt="صورة تواصل" style="max-width:650px; width:100%; height:auto; border-radius:12px;">
+		</a>
+		<div class="simple-caption">للتواصل أو الإستفسار تواصلوا معي</di
+        <a href="index.html" class="back-btn">العودة للرئيسية</a>
+    </div>
+
+</body>
+</html>
