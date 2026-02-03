@@ -34,7 +34,7 @@
             min-height: 100vh;
         }
 
-        /* --- الناف بار المتحرك --- */
+        /* --- الناف بار المتحرك (للكمبيوتر) --- */
         .navbar {
             background: var(--white);
             padding: 15px 30px;
@@ -76,7 +76,6 @@
         }
         .dropdown-content a:hover { background: var(--light-bg); color: var(--accent-color); }
         
-        /* تعديل لإظهار القائمة عند الضغط أو الحوم */
         .dropdown:hover .dropdown-content, .dropdown.active .dropdown-content { display: block; }
 
         .nav-link-item {
@@ -117,11 +116,33 @@
             top: 0; left: 0; background: rgba(0,0,0,0.4); z-index: 1999; backdrop-filter: blur(3px);
         }
 
+        /* --- تعديلات الهواتف فقط --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; } /* إخفاء الروابط في الجوال لمنع التداخل مع الزر واللوغو */
-            .menu-toggle { display: block; order: 1; } /* ترتيبه الأول جهة اليمين */
-            .nav-brand { order: 2; } /* اللوغو يأتي بعده */
-            .navbar { padding: 10px 20px; }
+            .nav-links { display: none; } 
+            .navbar { 
+                padding: 10px 15px; 
+                justify-content: space-between; /* لضمان توزيع الزر واللوغو */
+            }
+            .nav-brand { 
+                order: 2; /* وضع اللوغو في اليسار */
+                font-size: 1.2rem;
+            }
+            .menu-toggle { 
+                display: flex; 
+                order: 1; /* وضع زر الهمبرغر في اليمين */
+                background: #f1f3f4;
+                width: 40px;
+                height: 40px;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+            }
+            /* إصلاح زر السنوات المنسدل في وسط الصفحة للهواتف */
+            .dropdown-content {
+                width: 100%;
+                position: relative; /* لجعلها تدفع المحتوى للأسفل بدلاً من الطفو */
+                top: 0;
+            }
         }
 
         /* --- المحتوى --- */
