@@ -188,7 +188,9 @@
         .input-error { border-color: var(--fail) !important; background-color: #ffebee !important; animation: shake 0.3s; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-4px); } }
 		.link-image {
-    max-width: 100%;    /* تضمن عدم خروج الصورة عن حدود الشاشة */
+	display:block;		
+    max-width: 95%;    /* تضمن عدم خروج الصورة عن حدود الشاشة */
+	margin: 20px auto;
     height: auto;       /* تحافظ على أبعاد الصورة */
     border-radius: 12px; /* حواف دائرية أنيقة */
     transition: transform 0.3s ease, opacity 0.3s ease; /* حركة ناعمة */
@@ -200,6 +202,15 @@
     transform: scale(1.02); /* تكبير بسيط جداً */
     opacity: 0.9;           /* شفافية بسيطة */
 }
+.simple-caption {
+    text-align: center;       /* جعل النص في الوسط */
+    margin-top: 12px;         /* مسافة بين الصورة والنص */
+    margin-bottom: 25px;      /* مسافة تحت النص */
+    font-size: 0.8rem;       /* حجم الخط */
+    color: var(--primary-dark); /* لون النص (نفس لون العناوين) */
+    font-weight: 500;         /* جعل الخط سميكاً */
+}
+
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -209,15 +220,6 @@
 <nav class="navbar">
     <a href="#" class="nav-brand">⚖️ معدلي <span style="color: var(--accent-color);">حقوق</span></a>
     <div class="nav-links">
-        <div class="dropdown">
-            <div class="dropbtn">🎓 السنوات <span style="font-size: 0.7rem;">▼</span></div>
-            <div class="dropdown-content">
-                <a href="index.html">السنة الأولى (L1)</a>
-                <a href="soon.html">السنة الثانية (L2)</a>
-                <a href="soon.html">السنة الثالثة (L3)</a>
-            </div>
-        </div>
-
         <a href="https://t.me/droitdzz" target="_blank" class="nav-link-item">
             <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
             <span class="link-text">قناة الملخصات</span>
@@ -226,8 +228,8 @@
             <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             <span class="link-text">فيسبوك</span>
         </a>
-        <button class="menu-toggle" onclick="openNav()">☰</button>
     </div>
+    <button class="menu-toggle" onclick="openNav()">☰</button>
 </nav>
 
 <div id="mySidenav" class="sidenav">
@@ -248,21 +250,35 @@
         <h1>حساب المعدل الجامعي</h1>
         <p>السنة الأولى حقوق (LMD)</p>
     </div>
+	<a target="_blank">
+    <img src="https://raw.githubusercontent.com/bibootrb/my-site-images/main/Banner.png
+" alt="وصف الصورة" class="link-image">
+
+</a>
 
     <div class="content-area">
+        
+        <div class="dropdown" style="width: 100%; margin-bottom: 10px;">
+            <div class="dropbtn" style="width: 100%; justify-content: space-between; box-sizing: border-box; padding: 12px 20px; border-radius: 50px;">
+                <span>🎓 السنوات الدراسية</span>
+                <span style="font-size: 0.7rem;">▼</span>
+            </div>
+            <div class="dropdown-content" style="width: 100%; text-align: center;">
+                <a href="index.html">السنة الأولى (L1)</a>
+                <a href="soon.html">السنة الثانية (L2)</a>
+                <a href="soon.html">السنة الثالثة (L3)</a>
+            </div>
+        </div>
+
         <select id="semesterSelect" class="semester-select" onchange="updateSemester()">
             <option value="s1">🎓 السداسي الأول</option>
             <option value="s2">⚖️ السداسي الثاني</option>
             <option value="annual">📅 المعدل السنوي</option>
             <option value="rescue">🎯 حاسبة الإنقاذ</option>
         </select>
-		<a target="_blank">
-    <img src="https://raw.githubusercontent.com/bibootrb/my-site-images/main/Banner.png
-" alt="وصف الصورة" class="link-image">
-</a>
 
         <div id="settings-box" class="settings-box">
-            <div style="font-size:0.9rem; font-weight:800; margin-bottom:5px;">طريقة الاحتساب:</div>
+            <div style="font-size:0.9rem; font-weight:600; margin-bottom:5px;">طريقة الاحتساب: حسب نظام جامعتك</div>
             <div class="radio-group">
                 <label><input type="radio" name="calcSystem" value="0.6" checked> 60/40</label>
                 <label><input type="radio" name="calcSystem" value="0.5"> 50/50</label>
@@ -307,14 +323,16 @@
             <div style="margin-top:5px">🚨 اللون الأحمر يعني نقطة أكبر من 20.</div>
         </div>
 		<a href="https://t.me/droitdzz" target="_blank" style="display:block; text-align:center; margin:20px auto;">
-    <img src="https://cdn.jsdelivr.net/gh/bibootrb/my-site-images@main/IMG_2189.png" 
+    <img src="https://cdn.jsdelivr.net/gh/bibootrb/my-site-images@main/IMG_2189.png"
          alt="وصف الصورة" 
          style="max-width:650px; width:95%; height:auto; border-radius:12px; box-shadow: 0 4px 15px rgba(0,0,0,0.0);">
-</a>
+		 </a>
+		 <div class="simple-caption">للتواصل أو الإستفسار تواصلوا معي</div>
+
 
     </div>
 </div>
-
+	
 <footer class="footer">
     <div style="margin-bottom:10px">
         <a href="https://t.me/droitdzz" class="footer-link">تليجرام</a>
