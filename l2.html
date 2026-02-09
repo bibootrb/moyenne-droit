@@ -34,7 +34,7 @@
             min-height: 100vh;
         }
 
-        /* --- الناف بار المحسن للكمبيوتر والجوال --- */
+        /* --- الناف بار المحسن --- */
         .navbar {
             background: var(--white);
             padding: 0 30px;
@@ -72,7 +72,6 @@
             border-radius: 12px; align-items: center; justify-content: center;
         }
 
-        /* --- توافق احترافي للجوال --- */
         @media (max-width: 768px) {
             .navbar { padding: 0 10px; height: 65px; justify-content: space-between; }
             .menu-toggle { display: flex; order: 1; margin: 0; }
@@ -104,7 +103,6 @@
             top: 0; left: 0; background: rgba(0,0,0,0.4); z-index: 1999; backdrop-filter: blur(3px);
         }
 
-        /* --- المحتوى العام --- */
         .container {
             max-width: 650px; width: 95%; margin: 100px auto 30px auto;
             background: var(--white); border-radius: 16px;
@@ -200,7 +198,7 @@
 
 <nav class="navbar">
     <button class="menu-toggle" onclick="openNav()">☰</button>
-    <a href="#" class="nav-brand">⚖️ معدلي <span style="color: var(--accent-color);">حقوق</span></a>
+    <a href="index.html" class="nav-brand">⚖️ معدلي <span style="color: var(--accent-color);">حقوق</span></a>
     <div class="nav-links">
         <a href="https://t.me/droitdzz" target="_blank" class="social-link">
             <svg class="icon-svg-mini" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.743.051c-.033.004-.066.01-.098.015A12.01 12.01 0 0 0 11.944 0zM4.97 10.22l8.97-3.64a.75.75 0 0 1 .965.986l-2.47 8.27a.75.75 0 0 1-1.353.05L8.7 12.2l-2.91-1.12a.75.75 0 0 1-.82-1.86zm3.32 2.94 1.39 3.44.93-3.13-2.32-2.32.96-.38z"/></svg>
@@ -220,9 +218,6 @@
     <a href="index.html">📜 السنة الأولى (L1)</a>
     <a href="l2.html">⚖️ السنة الثانية (L2)</a>
     <a href="soon.html">🏛️ السنة الثالثة (L3)</a>
-    <div style="border-top:1px solid #eee; margin:15px 0;"></div>
-    <a href="https://t.me/droitdzz">📱 قناة التليجرام</a>
-    <a href="https://www.facebook.com/share/188gTChqTK/?mibextid=wwXIfr">👥 مجموعة الفيسبوك</a>
 </div>
 
 <div id="overlay" class="overlay" onclick="closeNav()"></div>
@@ -244,14 +239,14 @@
             </div>
             <div class="dropdown-content">
                 <a href="index.html">السنة الأولى (L1)</a>
-                <a href="l2.html">السنة الثانية (L2)</a>
+                <a href="l2.html" style="background: #e0f2f1;">السنة الثانية (L2)</a>
                 <a href="soon.html">السنة الثالثة (L3)</a>
             </div>
         </div>
 
         <select id="semesterSelect" class="semester-select" onchange="updateSemester()">
-            <option value="s1">🎓 السداسي الأول</option>
-            <option value="s2">⚖️ السداسي الثاني</option>
+            <option value="s1">🎓 السداسي الثالث (S3)</option>
+            <option value="s2">⚖️ السداسي الرابع (S4)</option>
             <option value="annual">📅 المعدل السنوي</option>
             <option value="rescue">🎯 حاسبة الإنقاذ</option>
         </select>
@@ -275,19 +270,19 @@
 
         <div id="annual-section">
             <div class="annual-input-group">
-                <span class="annual-label">معدل السداسي الأول (S1)</span>
+                <span class="annual-label">معدل السداسي الثالث (S3)</span>
                 <input type="number" id="avg-s1" class="annual-input" placeholder="00.00" step="0.01">
             </div>
             <div class="annual-input-group">
-                <span class="annual-label">معدل السداسي الثاني (S2)</span>
+                <span class="annual-label">معدل السداسي الرابع (S4)</span>
                 <input type="number" id="avg-s2" class="annual-input" placeholder="00.00" step="0.01">
             </div>
         </div>
 
         <div id="rescue-section">
-            <div style="background: #e0f7fa; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem;">أدخل معدل السداسي الأول لتعرف ما تحتاجه للنجاح السنوي.</div>
+            <div style="background: #e0f7fa; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem;">أدخل معدل السداسي الثالث لتعرف ما تحتاجه للنجاح السنوي.</div>
             <div class="annual-input-group">
-                <span class="annual-label">معدل السداسي الأول الحالي</span>
+                <span class="annual-label">معدل السداسي الثالث الحالي</span>
                 <input type="number" id="rescue-s1" class="annual-input" placeholder="00.00" step="0.01">
             </div>
         </div>
@@ -299,7 +294,6 @@
 
         <div id="tips-section" style="margin-top:30px; background:#f8f9fa; padding:15px; border-radius:10px; font-size:0.85rem; color:#78909c;">
             <div>✏️ اضغط على المعامل لتغييره.</div>
-            <div style="margin-top:5px">🚨 اللون الأحمر يعني نقطة أكبر من 20.</div>
         </div>
 		<a href="https://t.me/droitdzz" target="_blank" style="display:block; text-align:center; margin:20px auto;">
             <img src="https://cdn.jsdelivr.net/gh/bibootrb/my-site-images@main/IMG_2189.png" alt="صورة تواصل" style="max-width:650px; width:95%; height:auto; border-radius:12px;">
@@ -336,21 +330,17 @@
     function openNav() { document.getElementById("mySidenav").style.width = "280px"; document.getElementById("overlay").style.display = "block"; }
     function closeNav() { document.getElementById("mySidenav").style.width = "0"; document.getElementById("overlay").style.display = "none"; }
 
-    // هنا تم وضع مواد السنة الثانية ومعاملاتها كما طلبت بالضبط
     const modulesL2 = [
         { name: "قانون جنائي عام", coeff: 2, credit: 6, hasTD: true },
         { name: "قانون مدني", coeff: 2, credit: 6, hasTD: true },
         { name: "قانون إداري", coeff: 1, credit: 4, hasTD: true },
-        { name: "القانون الدولي العام", coeff: 2, credit: 5, hasTD: false },
+        { name: "قانون دولي عام", coeff: 2, credit: 5, hasTD: false },
         { name: "قانون تجاري", coeff: 1, credit: 4, hasTD: false },
         { name: "تقنيات البحث العلمي", coeff: 1, credit: 3, hasTD: true },
         { name: "لغة إنجليزية", coeff: 1, credit: 2, hasTD: false }
     ];
 
-    const modulesS1 = modulesL2;
-    const modulesS2 = modulesL2;
-
-    let currentModules = modulesS1;
+    let currentModules = modulesL2;
     let mode = 's1'; 
 
     function updateSemester() {
@@ -369,7 +359,6 @@
         else if (mode === 'rescue') { rescue.style.display = 'block'; }
         else {
             table.style.display = 'block'; settings.style.display = 'block'; tips.style.display = 'block'; resetBtn.style.display = 'block';
-            currentModules = (mode === 's1') ? modulesS1 : modulesS2;
             renderTable();
         }
     }
@@ -421,18 +410,18 @@
     }
 
     function calculateAnnual() {
-        let s1 = parseFloat(document.getElementById('avg-s1').value);
-        let s2 = parseFloat(document.getElementById('avg-s2').value);
-        if (isNaN(s1) || isNaN(s2)) { alert("أدخل معدل السداسيين"); return; }
-        let annualAvg = (s1 + s2) / 2;
+        let s3 = parseFloat(document.getElementById('avg-s1').value);
+        let s4 = parseFloat(document.getElementById('avg-s2').value);
+        if (isNaN(s3) || isNaN(s4)) { alert("أدخل معدل السداسيين"); return; }
+        let annualAvg = (s3 + s4) / 2;
         showResult(annualAvg, (annualAvg >= 10 ? 60 : "---") + " / 60", "سنوي");
     }
 
     function calculateRescue() {
-        let s1 = parseFloat(document.getElementById('rescue-s1').value);
-        if (isNaN(s1)) { alert("أدخل معدل السداسي الأول"); return; }
-        let needed = (10 * 2) - s1;
-        showResult(needed, "السداسي الثاني", "هدف");
+        let s3 = parseFloat(document.getElementById('rescue-s1').value);
+        if (isNaN(s3)) { alert("أدخل معدل السداسي الثالث"); return; }
+        let needed = (10 * 2) - s3;
+        showResult(needed, "السداسي الرابع", "هدف");
     }
 
     function showResult(avg, credit, type) {
@@ -464,13 +453,6 @@
     function resetFields() {
         document.querySelectorAll('input[type="number"]:not(.coeff-input)').forEach(i => { i.value=""; i.classList.remove('score-good','score-bad','input-error'); });
     }
-
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-        let st = window.pageYOffset || document.documentElement.scrollTop;
-        document.querySelector('.navbar').classList.toggle('hidden', st > lastScrollTop && st > 100);
-        lastScrollTop = st;
-    });
 
     renderTable(); 
 </script>
